@@ -7,9 +7,19 @@ if [ -z "$PREFIX" ]; then
   exit 2
 fi
 
+WORK_DIR=$(pwd)
 SOURCE_DIR=${FFMPEG_SOURCE_DIR:-ffmpeg_src}
 ARCH=${FFMPEG_ARCH:-$(uname -m)}
 JOBS=${JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)}
+
+if [ ! -d "$SOURCE_DIR" ]; then
+  echo "FFmpeg source dir not found: $SOURCE_DIR" >&2
+  exit 1
+fi
+
+mkdir -p "$PREFIX"
+PREFIX=$(cd "$PREFIX" && pwd)
+SOURCE_DIR=$(cd "$SOURCE_DIR" && pwd)
 
 if [ -n "${FFMPEG_TARGET_OS:-}" ]; then
   TARGET_OS=$FFMPEG_TARGET_OS
@@ -81,3 +91,5 @@ make -j"$JOBS"
 
 echo "Running make install"
 make install
+
+cd "$WORK_DIR"
