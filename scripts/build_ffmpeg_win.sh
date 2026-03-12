@@ -7,8 +7,18 @@ if [ -z "$PREFIX" ]; then
   exit 2
 fi
 
+WORK_DIR=$(pwd)
 SOURCE_DIR=${FFMPEG_SOURCE_DIR:-ffmpeg_src}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
+
+if [ ! -d "$SOURCE_DIR" ]; then
+  echo "FFmpeg source dir not found: $SOURCE_DIR" >&2
+  exit 1
+fi
+
+mkdir -p "$PREFIX"
+PREFIX=$(cd "$PREFIX" && pwd)
+SOURCE_DIR=$(cd "$SOURCE_DIR" && pwd)
 
 echo "Install prefix: $PREFIX"
 echo "Source dir: $SOURCE_DIR"
@@ -77,4 +87,4 @@ make install
 mkdir -p "$PREFIX"
 cp -r "$(pwd)/install"/* "$PREFIX/" 2>/dev/null || true
 
-cd ..
+cd "$WORK_DIR"
