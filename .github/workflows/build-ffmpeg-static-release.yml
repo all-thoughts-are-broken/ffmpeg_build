@@ -148,7 +148,7 @@ jobs:
           if-no-files-found: error
 
   build_macos:
-    runs-on: macos-13
+    runs-on: macos-15-intel
     needs: prepare
     env:
       FFMPEG_REF: ${{ needs.prepare.outputs.ffmpeg_ref }}
