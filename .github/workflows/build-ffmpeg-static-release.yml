@@ -83,7 +83,7 @@ jobs:
 
       - name: Add CMake package file
         shell: msys2 {0}
-        run: cp ffmpeg_out/FFmpegConfig.cmake ffmpeg_release/win64/FFmpegConfig.cmake
+        run: mkdir -p ffmpeg_release/win64/cmake && cp ffmpeg_out/cmake/FFmpegConfig.cmake ffmpeg_release/win64/cmake/FFmpegConfig.cmake
 
       - name: Package artifact
         id: package
@@ -129,7 +129,7 @@ jobs:
 
       - name: Add CMake package file
         shell: bash
-        run: cp ffmpeg_out/FFmpegConfig.cmake ffmpeg_release/linux-x86_64/FFmpegConfig.cmake
+        run: mkdir -p ffmpeg_release/linux-x86_64/cmake && cp ffmpeg_out/cmake/FFmpegConfig.cmake ffmpeg_release/linux-x86_64/cmake/FFmpegConfig.cmake
 
       - name: Package artifact
         id: package
@@ -175,7 +175,7 @@ jobs:
 
       - name: Add CMake package file
         shell: bash
-        run: cp ffmpeg_out/FFmpegConfig.cmake ffmpeg_release/macos-x86_64/FFmpegConfig.cmake
+        run: mkdir -p ffmpeg_release/macos-x86_64/cmake && cp ffmpeg_out/cmake/FFmpegConfig.cmake ffmpeg_release/macos-x86_64/cmake/FFmpegConfig.cmake
 
       - name: Package artifact
         id: package
@@ -224,7 +224,7 @@ jobs:
             - AAC and H264 parsers
             - AAC ADTS to ASC and H264 MP4 to Annex B bitstream filters
 
-            Each package also includes FFmpegConfig.cmake for direct CMake import.
+            Each package also includes cmake/FFmpegConfig.cmake for direct CMake import.
           files: |
             release-artifacts/ffmpeg-win64/*
             release-artifacts/ffmpeg-linux-x86_64/*
