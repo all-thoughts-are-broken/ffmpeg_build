@@ -79,7 +79,7 @@ jobs:
         shell: msys2 {0}
         env:
           FFMPEG_SOURCE_DIR: ffmpeg_src
-        run: bash build_ffmpeg_win.sh ffmpeg_release/win64
+        run: bash scripts/build_ffmpeg_win.sh ffmpeg_release/win64
 
       - name: Add CMake package file
         shell: msys2 {0}
